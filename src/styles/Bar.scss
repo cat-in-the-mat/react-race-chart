@@ -1,0 +1,29 @@
+div#barContainer {
+  list-style: none;
+  font-family: Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
+  margin: 10px 20px;
+  position: absolute;
+  width: 100%;
+}
+
+div#barName {
+  float: left;
+  width: 50px;
+  height: 22px;
+  margin: 0px 15px;
+}
+
+div#bar {
+  height: 20px;
+  background-color: black;
+}
+
+div#barVal {
+  width: 50px;
+  height: 22px;
+  margin: 0px 10px;
+}

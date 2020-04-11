@@ -1,0 +1,19 @@
+div.rc-billboard {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  text-align: right;
+}
+
+div.rc-billboard div:first-child {
+  font-size: 3em;
+  font-weight: bold;
+  line-height: 0.9em;
+  color: #ccc;
+}
+
+div.rc-billboard div:nth-child(2) {
+  font-size: 1.5em;
+  line-height: 0.9em;
+  color: #ccc;
+}

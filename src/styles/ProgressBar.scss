@@ -1,0 +1,11 @@
+div#progressBarContainer {
+  width: 500px;
+  border: 1px solid black;
+  float: left;
+}
+
+div#progressBarCurrentProgress {
+  height: 20px;
+  background-color: black;
+  margin: 0px 10px;
+}
