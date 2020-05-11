@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {csv} from "d3";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faPause} from '@fortawesome/free-solid-svg-icons';
 import useInterval from '../customHooks/useInterval';
@@ -28,16 +29,39 @@ function interpolateBarVals(bars, uptimeTick, timeTick) {
 function RaceChart(props) {
   const [uptimeTick, setUptimeTick] = useState(0);
   const [isTicking, setIsTicking] = useState(true);
+  const [data, setData] = useState({time: [], bars: {}});
 
-  const totalTick = (props.data.time.length - 1) * props.settings.timeTick;
+  useEffect(() => {
+    csv('http://localhost:3000/data.csv').then(data => {
+      console.log('data', data);
+
+      let obj = {
+        time:[],
+        bars:{
+        }
+      };
+      
+      Object.values(data).filter((val) => !Array.isArray(val)).forEach((row) => {
+        obj.time.push(row.time);
+        Object.keys(row).filter((key) => key !== 'time').forEach((key) => {
+          if (!obj.bars[key]) obj.bars[key] = [];
+          obj.bars[key].push(row[key]);
+        });
+      });
+
+      setData(obj);
+    })
+  }, [])
+
+  const totalTick = (data.time.length - 1) * props.settings.timeTick;
 
   useInterval(() => {
     setUptimeTick((uptimeTick + props.settings.fineTick) % totalTick);
   }, isTicking ? props.settings.fineTick : null);
 
-  const barVals = interpolateBarVals(props.data.bars, uptimeTick, props.settings.timeTick);
+  const barVals = interpolateBarVals(data.bars, uptimeTick, props.settings.timeTick);
   const timeIndex = Math.floor(uptimeTick / props.settings.timeTick);
-  const currentTime = props.data.time[timeIndex];
+  const currentTime = data.time[timeIndex];
 
   return (
     <div className="rc-container" style={{ width: props.settings.width }}>
