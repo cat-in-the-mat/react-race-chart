@@ -3,9 +3,9 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors());
+app.use(express.static('static'));
 
-app.use(express.static('static'))
-
-app.listen(3000, () => {
-  console.log('server listening');
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server listening on http://localhost:${port}`);
 }); 
