@@ -32,9 +32,7 @@ function RaceChart(props) {
   const [data, setData] = useState({time: [], bars: {}});
 
   useEffect(() => {
-    csv('http://localhost:3000/data.csv').then(data => {
-      console.log('data', data);
-
+    csv(props.dataUrl).then(data => {
       let obj = {
         time:[],
         bars:{
@@ -42,10 +40,10 @@ function RaceChart(props) {
       };
       
       Object.values(data).filter((val) => !Array.isArray(val)).forEach((row) => {
-        obj.time.push(row.time);
+        obj.time.push(parseInt(row.time, 10));
         Object.keys(row).filter((key) => key !== 'time').forEach((key) => {
           if (!obj.bars[key]) obj.bars[key] = [];
-          obj.bars[key].push(row[key]);
+          obj.bars[key].push(parseInt(row[key], 10));
         });
       });
 
