@@ -13,11 +13,15 @@
             "last 1 Android version",
             "last 1 ChromeAndroid version",
             "ie 11"
-          ]
+          ],
+          "node": "current"
         }
       }
     ],
     "@babel/preset-react"
   ],
-  "plugins": [ "@babel/plugin-proposal-class-properties" ]
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-modules-commonjs"
+  ]
 }
